@@ -52,4 +52,18 @@ export class NgxAutoSmoothScrollDownDirective implements AfterContentInit, OnDes
         const scrollFromBottom = this.nativeElement.scrollHeight - this.nativeElement.scrollTop - this.nativeElement.clientHeight;
         this._isLocked = scrollFromBottom > this.lockYOffset;
     }
+    
+    private scrollTo(scrollDuration) {
+        
+        let element = this.nativeElement;
+
+        let scrollStep = element.scrollHeight / (scrollDuration / 25);
+        let scrollInterval = setInterval(() => {
+            if ((element.scrollTop + element.clientHeight) != element.scrollHeight) {
+                element.scrollTop += scrollStep;
+            }
+            else clearInterval(scrollInterval);
+        }, 15);
+
+    }
 }
